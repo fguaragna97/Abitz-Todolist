@@ -1,5 +1,17 @@
+import { Col, Container, Row } from "react-bootstrap";
+import NavbarMenu from "./components/NavbarMenu";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <NavbarMenu></NavbarMenu>
+      <Container>
+        <Row>
+          <Col></Col>
+        </Row>
+      </Container>
+    </>
+  );
 }
 
 export default App;
