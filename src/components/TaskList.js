@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import Task from "./Task";
 
 // here we do a map function to show all the list.
@@ -13,6 +14,7 @@ function TaskList({ data }) {
           completed={item.completed}
         />
       ))}
+      {<Button>New Task</Button>}
     </>
   );
 }
