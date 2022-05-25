@@ -11,11 +11,14 @@ export const UserContext = React.createContext(null);
 
 function App() {
   const [user, setUser] = useState(null);
+  const [tasks, setTask] = useState([]);
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
+        tasks,
+        setTask,
       }}
     >
       <NavbarMenu></NavbarMenu>
