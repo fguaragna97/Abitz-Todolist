@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  let navigate = useNavigate();
   const handleRegister = async (event) => {
     event.preventDefault();
     // with these we can capture the value of the input
@@ -9,7 +11,29 @@ export default function Register() {
     const password = event.target.elements.password.value;
     const confirmpassword = event.target.elements.confirmpassword.value;
 
-    console.log(email, password, confirmpassword);
+    const data = {
+      email,
+      password,
+    };
+
+    if (password === confirmpassword) {
+      try {
+        const response = await fetch("http://localhost:3001/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const apidata = await response.json();
+        console.log(apidata);
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("passwords doesnt match");
+    }
   };
   return (
     <>

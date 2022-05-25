@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import NavUser from "./NavUser";
 
 export default function NavbarMenu() {
   return (
@@ -12,14 +13,7 @@ export default function NavbarMenu() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto"></Nav>
-          <Nav>
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-            <Link to="/register" className="nav-link">
-              Register
-            </Link>
-          </Nav>
+          <NavUser></NavUser>
         </Navbar.Collapse>
       </Container>
     </Navbar>

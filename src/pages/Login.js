@@ -1,49 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
+import { UserContext } from "../App";
 
 export default function Login() {
+  let navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     // with these we can capture the value of the input
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
 
-    console.log(email, password);
-    // // here we send the config of the response type
-    // const bodyresponse = {};
+    const data = {
+      email,
+      password,
+    };
 
-    // // we send the request in a try catch in case it fails
-    // try {
-    //   setError("");
-    //   setLoading(true);
-    //   const response = await fetch(
-    //     "https://api.openai.com/v1/engines/text-curie-001/completions",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(bodyresponse),
-    //     }
-    //   );
-    //   const apidata = await response.json();
-
-    //   const data = apidata.choices[0].text;
-    //   const id = apidata.id;
-
-    //   const info = { prompt, response, id };
-
-    //   // we set data with the old information and with the new one also save in the local storage.
-    //   setData([info, ...data]);
-    //   localStorage.setItem("alldata", JSON.stringify([info, ...data]));
-    //   setLoading(false);
-    // } catch (error) {
-    //   setError(error);
-    //   setLoading(false);
-    // }
-
-    // // we reset the input
-    // event.target.elements.prompt.value = "";
+    try {
+      const response = await fetch("http://localhost:3001/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const apidata = await response.json();
+      if (apidata.error) {
+        console.log("User doesnt exist");
+      } else {
+        setUser(apidata);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
