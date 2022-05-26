@@ -1,7 +1,14 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Row, Col, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function Task({ taskName, completed }) {
+function Task({ taskName, completed, id }) {
+  let navigate = useNavigate();
+  const onEdit = (event) => {
+    event.preventDefault();
+    navigate(`/task/edit/${id}`);
+  };
+
   return (
     <div className="bg-light p-3 mb-3 my-4">
       <Row>
@@ -10,6 +17,9 @@ function Task({ taskName, completed }) {
         </Col>
         <Col>
           <p>{taskName}</p>
+        </Col>
+        <Col>
+          <Button onClick={onEdit}>Edit</Button>
         </Col>
       </Row>
       <Row className="divider"></Row>

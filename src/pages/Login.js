@@ -31,7 +31,8 @@ export default function Login() {
       if (apidata.error) {
         console.log("User doesnt exist");
       } else {
-        setUser(apidata);
+        localStorage.setItem("token", apidata.token);
+        setUser(apidata.user);
         navigate("/");
       }
     } catch (error) {

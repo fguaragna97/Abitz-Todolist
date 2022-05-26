@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import TaskList from "../components/TaskList";
 import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const { tasks, setTask } = useContext(UserContext);
+  let navigate = useNavigate();
+  const { user, tasks, setTask } = useContext(UserContext);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -12,15 +14,15 @@ export default function Home() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
           },
         });
         const apidata = await response.json();
         setTask(apidata);
       } catch (error) {}
     };
-
     fetchdata();
   }, []);
 
-  return <TaskList data={tasks}></TaskList>;
+  return user?.email ? <TaskList data={tasks}></TaskList> : navigate("/login");
 }
