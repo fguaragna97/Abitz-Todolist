@@ -10,7 +10,6 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // with these we can capture the value of the input
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
 
